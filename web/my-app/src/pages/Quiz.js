@@ -2,6 +2,7 @@ import { shadows, Box, Container } from "@mui/system";
 import { Grid, TextField, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/system';
 import Navbar from "../components/Navbar";
+import "../css/quiz.css"
 
 const theme = createTheme({
   typography: {
@@ -22,20 +23,20 @@ const Quiz = () => {
         display: "flex",
         justifyContent: "center"  
       }}>
-        <Grid spacing={3}>
-          <div>
+        <Grid direction="column" container spacing={3} className="form">
+          <Grid item>
             <Typography>
               Portfolio Questionaire
             </Typography>
-          </div>
-          <div>
+          </Grid>
+          <Grid item>
             <TextField 
               required
               id="outlined-required"
               label="Required"
               defaultValue="Hello World"
             />
-          </div>
+          </Grid>
         </Grid>
       </Container>
     </div>

@@ -1,0 +1,28 @@
+.main-container {
+    display: flex;
+    flex: auto;
+    flex-direction: row;
+}
+
+.sidebar {
+    flex: 0 1 40vw;
+    background-color: white;
+}
+
+.post-list{
+    background-color: red;
+    flex: 1 1 auto;
+}
+
+.top{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputs{
+    display: flex;
+    justify-content: center;
+}
