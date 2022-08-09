@@ -5,24 +5,29 @@
 }
 
 .sidebar {
-    flex: 0 1 40vw;
+    flex: 0 1 30vw;
     background-color: white;
 }
 
-.post-list{
-    background-color: red;
+.portfolios{
+    background-color: rgb(227, 227, 227);
     flex: 1 1 auto;
+    padding: 0px 30px;
+    gap: 10px;
 }
 
 .top{
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    margin: 30px 60px 50px;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
 .inputs{
     display: flex;
     justify-content: center;
+    margin: 50px 60px;
+    gap: 20px;
 }
