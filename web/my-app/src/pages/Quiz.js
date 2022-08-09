@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { shadows, Box, Container } from "@mui/system";
-import { Grid, TextField, Typography } from "@mui/material";
+import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button} from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/system';
+import SendIcon from '@mui/icons-material/Send';
 import Navbar from "../components/Navbar";
-import "../css/quiz.css"
 
 const theme = createTheme({
   typography: {
@@ -11,6 +12,15 @@ const theme = createTheme({
 });
 
 const Quiz = () => {
+  const [income, setIncome] = useState(null);
+  const [percentIncome, setPercentIncome] = useState(null);
+  const [risk, setRisk] = useState(null);
+  const [goal, setGoal] = useState(null);
+
+  const handleSubmit = async () => {
+
+  }
+
   return (
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
@@ -18,25 +28,25 @@ const Quiz = () => {
         backgroundColor: 'white',
         borderRadius: '15px',
         height: "75vh",
-        width: "40vw",
+        width: "30vw",
         mt: "50px",
         display: "flex",
         justifyContent: "center"  
       }}>
-        <Grid direction="column" container spacing={3} className="form">
-          <Grid item>
+        <Grid spacing={3}>
+          <div>
             <Typography>
               Portfolio Questionaire
             </Typography>
-          </Grid>
-          <Grid item>
+          </div>
+          <div>
             <TextField 
               required
               id="outlined-required"
               label="Required"
               defaultValue="Hello World"
             />
-          </Grid>
+          </div>
         </Grid>
       </Container>
     </div>
