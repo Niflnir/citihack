@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Tabs from "../components/Tabs";
 import { Container } from "@mui/system";
 import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
-import Navbar from "../components/Navbar";
-import { Link } from 'react-router-dom';
+import SaveIcon from '@mui/icons-material/Save';
 
-const Quiz = () => {
+const MyPortfolio = () => {
   const [income, setIncome] = useState(null);
   const [percentIncome, setPercentIncome] = useState(null);
   const [risk, setRisk] = useState(null);
@@ -15,9 +15,17 @@ const Quiz = () => {
 
   }
 
+  useEffect(() => {
+    setIncome(123);
+    setPercentIncome(50);
+    setRisk("low");
+    setGoal("RT");
+  }, [])
+
   return (
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
+      <Tabs tabValue={"1"}/>
       <Container sx={{
         backgroundColor: 'white',
         borderRadius: '15px',
@@ -45,10 +53,8 @@ const Quiz = () => {
             }}
           >
             <TextField 
-              required
               id="outlined-required"
-              label="Required"
-              helperText="Please enter your monthly income"
+              label="Monthly Income"
               variant="standard"
               value={income}
               onChange={e => setIncome(e.target.value)}
@@ -68,10 +74,8 @@ const Quiz = () => {
             }}
           >
             <TextField 
-              required
               id="outlined-required"
-              label="Required"
-              helperText="Please enter the % you willing to invest"
+              label="Percentage of Income to Invest"
               variant="standard"
               value={percentIncome}
               onChange={e => setPercentIncome(e.target.value)}
@@ -91,10 +95,8 @@ const Quiz = () => {
             }}
           >
             <FormControl>
-              <InputLabel>Risk Index</InputLabel>
               <Select
                 value={risk}
-                label="Risk Index"
                 onChange={e => setRisk(e.target.value)}
               >
                 <MenuItem value={"low"}>Low</MenuItem>
@@ -111,10 +113,8 @@ const Quiz = () => {
             }}
           >
             <FormControl>
-              <InputLabel>Investment Goal</InputLabel>
               <Select
                 value={goal}
-                label="Investment Goal"
                 onChange={e => setGoal(e.target.value)}
               >
                 <MenuItem value={"RT"}>Retirement</MenuItem>
@@ -129,14 +129,14 @@ const Quiz = () => {
             alignSelf="end"
             sx={{
               mx: "30px",
-            }}>
+              my: "30px"
+            }}
+          >
             <Button onSubmit={handleSubmit}
               variant="contained" 
-              endIcon={<SendIcon/>}
-              to="/myportfolio"
-              LinkComponent={Link}
+              endIcon={<SaveIcon/>}
             >
-              Submit
+              Save
             </Button>
           </Grid>
         </Grid>
@@ -145,4 +145,4 @@ const Quiz = () => {
   )
 }
 
-export default Quiz;
+export default MyPortfolio;

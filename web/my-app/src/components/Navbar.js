@@ -1,20 +1,5 @@
-import React from "react";
 import { Box, Container } from "@mui/material";
-import { ThemeProvider, createTheme } from '@mui/system';
 import logo from '../assets/Logo.png';
-
-const theme = createTheme({
-  palette: {
-    background: {
-      blue1: '#019BC9',
-      blue2: '#00498E',
-    },
-    text: {
-      primary: '#173A5E',
-      secondary: '#46505A',
-    },
-  },
-});
 
 const Navbar = () => {
   return (
@@ -26,7 +11,7 @@ const Navbar = () => {
       maxWidth="false"
     >
       <Box sx={{
-        pl:"40px",
+        pl:"50px",
         py:"25px"
       }}>
         <img src={logo} alt="Logo"/>
