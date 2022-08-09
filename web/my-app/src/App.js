@@ -1,9 +1,11 @@
-import React from 'react';
 import Quiz from './pages/Quiz';
+import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-    <Quiz />
+    <Routes>
+      <Route path="/quiz" element={<Quiz />}/>
+    </Routes>
   )
 }
 
