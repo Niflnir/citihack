@@ -23,7 +23,7 @@ body {
     flex-direction: column;
     flex: 1 1 auto;
     background-color: rgb(227, 227, 227);
-    padding: 0px 30px;
+    padding: 0px 50px;
     overflow-y: auto;
 }
 

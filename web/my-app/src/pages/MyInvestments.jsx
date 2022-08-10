@@ -8,7 +8,9 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Tabs from "../components/Tabs";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+
+
 
 const stocks= [
   'ETSY','PINS','MELI','SQ','SHOP','ISRG','DSK','BRK.A','AMZN','TSLA','AMD','GME'
@@ -16,14 +18,26 @@ const stocks= [
 
 export default function MyInvestments () {
   const [portfolios, setPortfolios] = useState([
-    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Bajaj Finserv, Adani Ports"},
-    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Cipla, Amazon"},
-    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Dr Reddys Labs, Amazon, Eicher Motors"},
-    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"35%","stock":"Google"}]);
-  const [returnRate, setReturnRate] = useState(0);
-  const [risk, setRisk] = useState(0);
-  const [sort, setSort] = useState("high2low");
+    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":35},
+    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":30},
+    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":5},
+    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":-35}]);
+  const [risk, setRisk] = useState(0)
+  const [sort, setSort] = useState("high2low")
   const term = useRef("Long Term");
+  
+  const compare = ( a, b ) => {
+    if (sort==='high2low'){
+      if (a.returnrate <= b.returnrate)
+        return -1
+      else return 0
+    }
+    else{
+      if (a.returnrate >= b.returnrate)
+        return -1
+      else return 0
+    }
+  }
 
   const handleSort = (event, val) => {
     if (val !== null) {
@@ -124,7 +138,7 @@ export default function MyInvestments () {
         </div>
         <div className="portfolios">
           {portfolios.length!==0?
-          portfolios.map((info,index) => (
+          portfolios.sort(compare).map((info,index) => (
             <PortfolioCard key={index} info={info} />
           )):
           <Typography variant="h4">No Portfolios found!</Typography>

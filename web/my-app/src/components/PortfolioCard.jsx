@@ -81,13 +81,13 @@ return(
             </div>
             <div style={{'alignSelf':'center'}}>
             <Typography>1-year performance:</Typography>
-            {Array.from(returnrate)[0]==='+'?
+            {returnrate>0?
             <Typography variant='h5' style={{'color':'green','textAlign':'right'}}>
-                {returnrate}
+                +{returnrate}%
             </Typography>
             :
             <Typography variant='h5' style={{'color':'red','textAlign':'right'}}>
-                {returnrate}
+                {returnrate}%
             </Typography>
             }
             </div>
