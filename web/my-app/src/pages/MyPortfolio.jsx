@@ -21,15 +21,11 @@ const MyPortfolio = () => {
 
   function handleSubmit() {
 
-    console.log("Hello world");
-
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }
-
-    console.log(payload);
 
     fetch('https://whatawhatwhat.com', requestOptions)
         .then(response => response.json())

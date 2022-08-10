@@ -12,7 +12,24 @@ const Quiz = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  const handleSubmit = async () => {
+  var payload =  {
+    "income": income,
+    "percentIncome": percentIncome,
+    "risk": risk,
+    "goal": goal
+  };
+
+  function handleSubmit() {
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }
+
+    fetch('https://whatawhatwhat.com', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
 
   }
 
@@ -142,7 +159,7 @@ const Quiz = () => {
             sx={{
               mx: "30px",
             }}>
-            <Button onSubmit={handleSubmit}
+            <Button onClick={handleSubmit}
               variant="contained" 
               endIcon={<SendIcon/>}
               to="/myportfolio"
