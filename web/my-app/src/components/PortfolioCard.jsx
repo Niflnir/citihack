@@ -30,7 +30,7 @@ function SimpleDialog({ onClose, info, open }) {
         <div style={divv}><b>Term: </b>{info.term}</div>
         <div style={divv}><b>Risk: </b>{info.risk}</div>
         <div style={divv}><b>Return Rate: </b>{info.returnrate}</div>
-        <p style={dia}><b>Stocks Chosen : </b>{info.stock}</p>
+        <p style={dia}><b>Financial Investments Chosen : </b>{info.stock}</p>
 
       </Dialog>
     );
