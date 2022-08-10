@@ -2,7 +2,7 @@ import Quiz from './pages/Quiz';
 import MyInvestments from './pages/MyInvestments'
 import MyPortfolio from './pages/MyPortfolio';
 import Savings from './pages/Savings';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 

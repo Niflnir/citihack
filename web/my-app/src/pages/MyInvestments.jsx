@@ -21,6 +21,8 @@ export default function MyInvestments () {
     {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Dr Reddys Labs, Amazon, Eicher Motors"},
     {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"35%","stock":"Google"}]);
   const [returnRate, setReturnRate] = useState(0);
+  const [risk, setRisk] = useState(0);
+  const [sort, setSort] = useState("high2low");
   const term = useRef("Long Term");
 
   const handleSort = (event, val) => {
