@@ -96,9 +96,19 @@ const options = {
 
 const Savings = () => {
   return (
-    <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh",
+      backgroundColor: "red",
+    }}>
       <Navbar /> 
       <Tabs tabValue={"3"}/>
+      <div style={{
+        display: 'flex',
+        flex: '1 1 auto',
+        flexDirection: 'row',
+      }}>
       <Grid direction="column" container sx={{pt:4}}>
         <Grid item alignSelf="center">
           <HighchartsReact highcharts={Highcharts} options={options}/>
@@ -113,6 +123,7 @@ const Savings = () => {
             </Button>
         </Grid>
       </Grid>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,13 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 .main-container {
     display: flex;
-    flex: auto;
+    align-items: stretch;
+    flex: 1 1 auto;
     flex-direction: row;
 }
 
@@ -14,6 +21,8 @@
     flex: 1 1 auto;
     padding: 0px 30px;
     gap: 10px;
+    height:100%;
+    overflow-y: auto;
 }
 
 .top{

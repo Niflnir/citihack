@@ -20,6 +20,7 @@ const Tabs = ({ tabValue }) => {
     }} 
       disableGutters="true" 
       maxWidth="false"
+      style={{"position": "sticky", "top": "0","zIndex":"10"}}
     >
     <Box>
       <TabContext value={value}>

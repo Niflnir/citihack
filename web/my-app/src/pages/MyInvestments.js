@@ -1,20 +1,4 @@
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  Select,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Slider,
-  Fab,
-  Card,
-  CardActionArea,
-  CardContent,
-	SimpleDialog,
-} from "@mui/material";
-import { Container } from "@mui/system";
+import { Typography, Button, Select, InputLabel, MenuItem, FormControl, Fab } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Navbar from "../components/Navbar";
 import "../css/myinvestments.css";
@@ -24,30 +8,32 @@ import ReturnsSlider from "../components/ReturnsSlider";
 import Tabs from "../components/Tabs";
 
 const MyInvestments = () => {
-  
-  const [portfolios, setPortfolios] = useState(["Edward", "Norton", "Benjamin"]);
+  const [portfolios, setPortfolios] = useState(["Edward", "Norton","Fred","Love","KK","ll","OPOP"]);
   const [returnRate, setReturnRate] = useState(0);
   const term = useRef("Long Term");
   const risk = useRef("Low Risk");
 
   return (
+		<div style={{
+			display: 'flex',
+			flexWrap: 'wrap',
+			height: '100vh',
+		}}>
     <div
       style={{
+				flex:1,
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh",
-        backgroundColor: "#e7ebf0",
+        minHeight: "100%",
+        backgroundColor: "red",
       }}
     >
       <Navbar />
-      <Tabs tabValue={"2"}/>
+      <Tabs tabValue={"2"} />
       <div className="main-container">
         <div className="sidebar">
           <div className="top">
             <Typography variant="h6">What portfolio are you looking for?</Typography>
-            <Button variant="text" color="primary" style={{ "font-color": "blue" }}>
-              Clear Filters
-            </Button>
           </div>
           <div className="inputs">
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -82,10 +68,13 @@ const MyInvestments = () => {
             </FormControl>
           </div>
           <div className="inputs">
-            <ReturnsSlider returnRate={returnRate} setReturnRate={setReturnRate}/>
+            <ReturnsSlider returnRate={returnRate} setReturnRate={setReturnRate} />
           </div>
           <div className="inputs">
-            <Fab variant="extended" color="primary" style={{ "min-width": "100%" }}>
+            <Button variant="text" color="primary" style={{ "font-color": "blue" }}>
+              Clear Filters
+            </Button>
+            <Fab variant="extended" color="primary" style={{ "min-width": "40%","zIndex":'0' }}>
               <SearchIcon sx={{ mr: 1 }} />
               Search
             </Fab>
@@ -93,11 +82,12 @@ const MyInvestments = () => {
         </div>
         <div className="portfolios">
           {portfolios.map((name) => (
-            <PortfolioCard name={name}/>
+            <PortfolioCard name={name} />
           ))}
         </div>
       </div>
     </div>
+		</div>
   );
 };
 
