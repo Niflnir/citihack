@@ -9,11 +9,29 @@ function SimpleDialog({ onClose, info, open }) {
     const handleClose = () => {
       onClose();
     };
-  
+
+    const dia = {
+        color: "white",
+        backgroundColor: "DodgerBlue",
+        padding: "10px",
+        fontFamily: "Sans-Serif"
+      };
+      
+      const divv = {
+        backgroundColor: "LightGrey",
+        padding: "10px",
+        fontFamily: "Sans-Serif"
+      };
+
     return (
       <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>{info.name}</DialogTitle>
-        
+        {/* {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%"}, */}
+        <DialogTitle>{info.name}'s Protfolio</DialogTitle>
+        <div style={divv}><b>Term: </b>{info.term}</div>
+        <div style={divv}><b>Risk: </b>{info.risk}</div>
+        <div style={divv}><b>Return Rate: </b>{info.returnrate}</div>
+        <p style={dia}><b>Financial Investments Chosen : </b>{info.stock}</p>
+
       </Dialog>
     );
   }

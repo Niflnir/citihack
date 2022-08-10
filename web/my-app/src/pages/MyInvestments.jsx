@@ -16,12 +16,11 @@ const stocks= [
 
 export default function MyInvestments () {
   const [portfolios, setPortfolios] = useState([
-    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"+35%"},
-    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"+30%"},
-    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"+5%"},
-    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"-35%"}]);
-  const [risk, setRisk] = useState(0)
-  const [sort, setSort] = useState("high2low")
+    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Bajaj Finserv, Adani Ports"},
+    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Cipla, Amazon"},
+    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"35%","stock":"Dr Reddys Labs, Amazon, Eicher Motors"},
+    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"35%","stock":"Google"}]);
+  const [returnRate, setReturnRate] = useState(0);
   const term = useRef("Long Term");
 
   const handleSort = (event, val) => {

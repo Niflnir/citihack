@@ -5,19 +5,54 @@ import SendIcon from '@mui/icons-material/Send';
 import Navbar from "../components/Navbar";
 import { Link } from 'react-router-dom';
 
+
 const Quiz = () => {
   const [income, setIncome] = useState(null);
   const [percentIncome, setPercentIncome] = useState(null);
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  const handleSubmit = async () => {
+  var payload =  {
+    "income": income,
+    "percentIncome": percentIncome,
+    "risk": risk,
+    "goal": goal
+  };
+
+  function handleSubmit() {
+
+    localStorage.setItem('income', JSON.stringify(income));
+    localStorage.setItem('percentIncome', JSON.stringify(percentIncome));
+    localStorage.setItem('risk', JSON.stringify(risk));
+    localStorage.setItem('goal', JSON.stringify(goal));
+
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }
+
+    fetch('https://whatawhatwhat.com', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
 
   }
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
+      <span><Button variant="contained"><Link to="/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign Up</Link></Button></span>
+      <span><Button variant="contained"><Link to="/signin" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign In</Link></Button></span>
+
+      
+      {/* <Button onClick={handleSignUp}
+              variant="contained" 
+              to="/signup"
+              LinkComponent={Link}
+            >
+              Sign Up
+            </Button> */}
       <Container sx={{
         backgroundColor: 'white',
         borderRadius: '15px',
@@ -130,7 +165,7 @@ const Quiz = () => {
             sx={{
               mx: "30px",
             }}>
-            <Button onSubmit={handleSubmit}
+            <Button onClick={handleSubmit}
               variant="contained" 
               endIcon={<SendIcon/>}
               to="/myportfolio"

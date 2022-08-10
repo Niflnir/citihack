@@ -4,6 +4,7 @@ import Tabs from "../components/Tabs";
 import { Container } from "@mui/system";
 import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button } from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
+import SignUp from './SignUp';
 
 const MyPortfolio = () => {
   const [income, setIncome] = useState(null);
@@ -11,15 +12,39 @@ const MyPortfolio = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  const handleSubmit = async () => {
+  var payload =  {
+    "income": income,
+    "percentIncome": percentIncome,
+    "risk": risk,
+    "goal": goal
+  };
+
+  function handleSubmit() {
+
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }
+
+    fetch('https://whatawhatwhat.com', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
 
   }
 
   useEffect(() => {
-    setIncome(123);
-    setPercentIncome(50);
-    setRisk("low");
-    setGoal("RT");
+
+    const defalut_income = JSON.parse(localStorage.getItem('income'));
+    const defalut_percentIncome = JSON.parse(localStorage.getItem('percentIncome'));
+    const defalut_risk = JSON.parse(localStorage.getItem('risk'));
+    const defalut_goal = JSON.parse(localStorage.getItem('goal'));
+
+    setIncome(defalut_income);
+    setPercentIncome(defalut_percentIncome);
+    setRisk(defalut_risk);
+    setGoal(defalut_goal);
   }, [])
 
   return (
@@ -132,7 +157,7 @@ const MyPortfolio = () => {
               my: "30px"
             }}
           >
-            <Button onSubmit={handleSubmit}
+            <Button onClick={handleSubmit}
               variant="contained" 
               endIcon={<SaveIcon/>}
             >
