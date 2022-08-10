@@ -1,24 +1,34 @@
-import { Typography, Button, Select, InputLabel, MenuItem, FormControl, Fab } from "@mui/material";
+import { Typography, Button, Select, InputLabel, MenuItem, FormControl, Fab, FormControlLabel, RadioGroup, Radio, FormLabel, ToggleButton, ToggleButtonGroup, Accordion, AccordionSummary, AccordionDetails, Autocomplete, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Navbar from "../components/Navbar";
 import "../css/myinvestments.css";
 import { useRef, useState } from "react";
 import PortfolioCard from "../components/PortfolioCard";
-import ReturnsSlider from "../components/ReturnsSlider";
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Tabs from "../components/Tabs";
 import FilterListIcon from '@mui/icons-material/FilterList';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+const stocks= [
+  'ETSY','PINS','MELI','SQ','SHOP','ISRG','DSK','BRK.A','AMZN','TSLA','AMD','GME'
+]
 
-const MyInvestments = () => {
+export default function MyInvestments () {
   const [portfolios, setPortfolios] = useState([
-    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
-    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
-    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
-    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"35%"}]);
-  const [returnRate, setReturnRate] = useState(0);
+    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"+35%"},
+    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"+30%"},
+    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"+5%"},
+    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"-35%"}]);
+  const [risk, setRisk] = useState(0)
+  const [sort, setSort] = useState("high2low")
   const term = useRef("Long Term");
-  const risk = useRef("Low Risk");
 
+  const handleSort = (event, val) => {
+    if (val !== null) {
+      setSort(val);
+    }
+  };
   return (
 		<div style={{
 			display: 'flex',
@@ -58,23 +68,47 @@ const MyInvestments = () => {
                 <MenuItem value={"Any"}>Any</MenuItem>
               </Select>
             </FormControl>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>Risk Level</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={risk.current}
-                label="Risk level"
-                onChange={(e) => (risk.current = e.target.value)}
+            <InputLabel style={{'alignSelf':'center'}}>Sort by:</InputLabel>
+            <ToggleButtonGroup exclusive value={sort} onChange={handleSort}>
+              <ToggleButton value="high2low">
+                <TrendingUpIcon/>
+              </ToggleButton>
+              <ToggleButton value="low2high">
+                <TrendingDownIcon/>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+          <div className='inputs'>
+            <FormControl >
+              <FormLabel>Risk Level: 0 (Lowest) to 5 (Highest)</FormLabel>
+              <RadioGroup row 
+                value={risk}
+                onChange={e=>setRisk(e.target.value)}
               >
-                <MenuItem value={"Low Risk"}>Low Risk</MenuItem>
-                <MenuItem value={"Medium Risk"}>Medium Risk</MenuItem>
-                <MenuItem value={"High Risk"}>High Risk</MenuItem>
-              </Select>
+                <FormControlLabel style={{'margin':'0px'}} value={0} control={<Radio />} label="0" labelPlacement="bottom"/>
+                <FormControlLabel style={{'margin':'0px'}} value={1} control={<Radio />} label='' labelPlacement="bottom"/>
+                <FormControlLabel style={{'margin':'0px'}} value={2} control={<Radio />} label='' labelPlacement="bottom"/>
+                <FormControlLabel style={{'margin':'0px'}} value={3} control={<Radio />} label='' labelPlacement="bottom"/>
+                <FormControlLabel style={{'margin':'0px'}} value={4} control={<Radio />} label='' labelPlacement="bottom"/>
+                <FormControlLabel style={{'margin':'0px'}} value={5} control={<Radio />} label="5" labelPlacement="bottom"/>
+              </RadioGroup>
             </FormControl>
           </div>
           <div className="inputs">
-            <ReturnsSlider returnRate={returnRate} setReturnRate={setReturnRate} />
+          <Autocomplete
+            style={{"width":'100%'}}
+            multiple
+            options={stocks}
+            getOptionLabel={o=>o}
+            filterSelectedOptions
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Stocks to filter by"
+                placeholder="Google"
+              />
+            )}
+          />
           </div>
           <div className="inputs">
             <Button variant="text" color="primary" style={{ "fontColor": "blue" }}>
@@ -88,9 +122,12 @@ const MyInvestments = () => {
           </div>
         </div>
         <div className="portfolios">
-          {portfolios.map((info,index) => (
+          {portfolios.length!==0?
+          portfolios.map((info,index) => (
             <PortfolioCard key={index} info={info} />
-          ))}
+          )):
+          <Typography variant="h4">No Portfolios found!</Typography>
+          }
         </div>
       </div>
     </div>
@@ -98,4 +135,3 @@ const MyInvestments = () => {
   );
 };
 
-export default MyInvestments;

@@ -44,11 +44,12 @@ export default function PortfolioCard({info}){
 
 return(
     <>
-        <Card sx={{ minWidth: 275 }} style={{ margin: "30px 0px" }}>
+        <Card sx={{ minWidth: '90%' }} style={{ margin: "20px 0px" }}>
         <CardActionArea onClick={handleClickOpen}>
-            <CardContent>
+            <CardContent style={{'display':'flex','flexDirection':'row','justifyContent':'space-between'}}>
+            <div>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Portfolio
+                Trader
             </Typography>
             <Typography variant="h5" component="div">
                 {name}
@@ -59,6 +60,19 @@ return(
             <Typography variant="body2">
                 Risk level: {risk}
             </Typography>
+            </div>
+            <div style={{'alignSelf':'center'}}>
+            <Typography>1-year performance:</Typography>
+            {Array.from(returnrate)[0]==='+'?
+            <Typography variant='h5' style={{'color':'green','textAlign':'right'}}>
+                {returnrate}
+            </Typography>
+            :
+            <Typography variant='h5' style={{'color':'red','textAlign':'right'}}>
+                {returnrate}
+            </Typography>
+            }
+            </div>
             </CardContent>
         </CardActionArea>
         <CardActions>
