@@ -1,20 +1,21 @@
-import { Button, Grid } from "@mui/material";
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import PaidIcon from '@mui/icons-material/Paid';
 import Navbar from "../components/Navbar";
 import Tabs from "../components/Tabs";
+import { useEffect, useState } from 'react';
+import { Button, Grid, FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 
-const options = {
+let options = {
   chart: {
       height: 500,
-      width: 1000,
+      width: 1200,
       backgroundColor: "#e7ebf0"
   },
 
   title: {
       margin: 40,
-      text: 'Project Growth of Savings with Investment Plan',
+      text: 'Growth of Savings',
       style: {
         fontSize: 25,
         fontWeight: 'bold',
@@ -23,23 +24,18 @@ const options = {
   },
 
   yAxis: {
-      accessibility: {
-          rangeDescription: `Range: 2022 to 2032`
-      },
       title: {
-          text: 'Number of Employees',
+          text: 'Amount',
           style: {
             fontSize: 17,
             fontWeight: 'bold',
             fontFamily: 'Times New Roman'
           }
-      }
+      },
+      max: 60000
   },
 
   xAxis: {
-      accessibility: {
-          rangeDescription: `Range: 0 to 100000`
-      },
       title: {
           text: 'Year',
           style: {
@@ -56,7 +52,7 @@ const options = {
       verticalAlign: 'middle'
   },
 
-  colors: ["#d4a226",  "#E85285", "#6A1B9A"],
+  colors: ["#E85285", "#6A1B9A"],
 
   plotOptions: {
       series: {
@@ -66,17 +62,6 @@ const options = {
           pointStart: 2022
       }
   },
-
-  series: [{
-      name: '50%',
-      data: [500, 600, 1000, 1800, 3000]
-  }, {
-      name: '75%',
-      data: [500, 800, 2000, 5000, 10000]
-  }, {
-      name: '100%',
-      data: [500, 1000, 2500, 7000, 20000]
-  }],
 
   responsive: {
     rules: [{
@@ -94,13 +79,47 @@ const options = {
   }
 }
 
-const Savings = () => {
+const calculate = (startAmount) => {
+    const dataArray1 = [];
+    const dataArray2 = [];
+    let multiplier1 = 1.0;
+    let multiplier2 = 1.0;
+    for(let i = 0; i < 10; i++){
+      dataArray1.push(Math.round(startAmount * multiplier1));
+      dataArray2.push(Math.round(startAmount * multiplier2));
+      multiplier1 += 0.1 + i;
+      multiplier2 += 0.2 + i*(i/2);
+    }
+    options.series = [{
+        name: 'with investment',
+        data: dataArray2
+      },{
+        name: 'without investment',
+        data: dataArray1
+    }]
+}
+
+const Savings = () => { 
+  const [amount, setAmount] = useState("low");
+  const savingsArray = [100, 300, 500];
+
+  const handleChange = (e) => {
+    const startAmount = e.target.value === "low" ? savingsArray[0] : e.target.value === "medium" ? savingsArray[1] : savingsArray[2];
+    setAmount(e.target.value);
+    calculate(startAmount);
+  }
+
+  useEffect(() => {
+    const startAmount = savingsArray[0];
+    calculate(startAmount);
+  }, [])
+  
   return (
     <div style={{
       display: "flex",
       flexDirection: "column",
       minHeight: "100vh",
-      backgroundColor: "white",
+      backgroundColor: "#e7ebf0",
     }}>
       <Navbar /> 
       <Tabs tabValue={"3"}/>
@@ -111,16 +130,35 @@ const Savings = () => {
       }}>
       <Grid direction="column" container sx={{pt:4}}>
         <Grid item alignSelf="center">
-          <HighchartsReact highcharts={Highcharts} options={options}/>
+          <HighchartsReact highcharts={Highcharts} options={options} updateArgs={[true]}/>
         </Grid>
-        <Grid item alignSelf="center" sx={{pt:8, pr:4.5}}>
-            <Button
-              variant="contained" 
-              startIcon={<PaidIcon/>}
-              size="large"
-            >
-              Invest
-            </Button>
+        <Grid item alignSelf="center" sx={{pt:9, pr:4.5}}>
+          <Grid direction="row" container spacing={30}>
+            <Grid item>
+              <FormControl>
+                <InputLabel>Amount</InputLabel>
+                <Select
+                  value={amount}
+                  label="Amount"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"low"}>{savingsArray[0]}</MenuItem>
+                  <MenuItem value={"medium"}>{savingsArray[1]}</MenuItem>
+                  <MenuItem value={"high"}>{savingsArray[2]}</MenuItem>
+                </Select>
+                <FormHelperText>Amount of savings invested per month</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item alignSelf="center" sx={{pt:10, pr:4.5}}>
+              <Button
+                variant="contained" 
+                startIcon={<PaidIcon/>}
+                size="large"
+              >
+                Invest
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       </div>
