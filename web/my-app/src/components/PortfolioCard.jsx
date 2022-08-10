@@ -1,32 +1,45 @@
-import { Card, CardActionArea, CardContent, Typography, Dialog, DialogTitle, List, ListItem, ListItemAvatar, Avatar } from "@mui/material";
+import { Card, CardActionArea, CardContent, Typography, Dialog, DialogTitle, List, ListItem, ListItemAvatar, Avatar, CardActions, Button } from "@mui/material";
 import React from "react";
+import { useSelector,useDispatch } from 'react-redux'
+import { updatePortfolioData } from '../redux/personalDataSlice'
 
 
-function SimpleDialog({ onClose, selectedValue, open }) {
+function SimpleDialog({ onClose, info, open }) {
   
     const handleClose = () => {
-      onClose(selectedValue);
+      onClose();
     };
   
     return (
       <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Set backup account</DialogTitle>
+        <DialogTitle>{info.name}</DialogTitle>
         
       </Dialog>
     );
   }
 
-export default function PortfolioCard({name}){
+export default function PortfolioCard({info}){
+    const {name,term,risk,returnrate} = info;
     const [open, setOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState("penis");
+    const dispatch = useDispatch()
+    const count = useSelector((state) => state.personalData.risk)
+    const handleSelect = () => {
+        dispatch(updatePortfolioData(
+            {
+            returnRate: returnrate,
+            term: term,
+            risk: risk,
+            }
+        ))
+    }
 
     const handleClickOpen = () => {
+        console.log(count)
         setOpen(true);
     };
 
-    const handleClose = (value) => {
+    const handleClose = () => {
         setOpen(false);
-        setSelectedValue(value);
     };
 
 return(    
@@ -50,8 +63,13 @@ return(
             </Typography>
             </CardContent>
         </CardActionArea>
+        <CardActions>
+            <Button size="small" color="primary" onClick={handleSelect}>
+            Use this portfolio
+            </Button>
+        </CardActions>
         </Card>
-        <SimpleDialog selectedValue={name} open={open} onClose={handleClose} />
+        <SimpleDialog info={info} open={open} onClose={handleClose} />
     </>
 )
 }
