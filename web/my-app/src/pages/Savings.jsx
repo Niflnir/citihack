@@ -100,7 +100,7 @@ const Savings = () => {
       display: "flex",
       flexDirection: "column",
       minHeight: "100vh",
-      backgroundColor: "red",
+      backgroundColor: "white",
     }}>
       <Navbar /> 
       <Tabs tabValue={"3"}/>

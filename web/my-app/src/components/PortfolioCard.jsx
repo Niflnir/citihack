@@ -42,24 +42,22 @@ export default function PortfolioCard({info}){
         setOpen(false);
     };
 
-return(    
+return(
     <>
         <Card sx={{ minWidth: 275 }} style={{ margin: "30px 0px" }}>
         <CardActionArea onClick={handleClickOpen}>
             <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Word of the Day
+                Portfolio
             </Typography>
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
+                Term: {term}
             </Typography>
             <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
+                Risk level: {risk}
             </Typography>
             </CardContent>
         </CardActionArea>

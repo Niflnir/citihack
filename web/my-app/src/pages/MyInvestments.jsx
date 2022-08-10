@@ -6,9 +6,15 @@ import { useRef, useState } from "react";
 import PortfolioCard from "../components/PortfolioCard";
 import ReturnsSlider from "../components/ReturnsSlider";
 import Tabs from "../components/Tabs";
+import FilterListIcon from '@mui/icons-material/FilterList';
+
 
 const MyInvestments = () => {
-  const [portfolios, setPortfolios] = useState(["Edward", "Norton","Fred","Love","KK","ll","OPOP"]);
+  const [portfolios, setPortfolios] = useState([
+    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
+    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
+    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":"35%"},
+    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":"35%"}]);
   const [returnRate, setReturnRate] = useState(0);
   const term = useRef("Long Term");
   const risk = useRef("Low Risk");
@@ -71,18 +77,19 @@ const MyInvestments = () => {
             <ReturnsSlider returnRate={returnRate} setReturnRate={setReturnRate} />
           </div>
           <div className="inputs">
-            <Button variant="text" color="primary" style={{ "font-color": "blue" }}>
-              Clear Filters
+            <Button variant="text" color="primary" style={{ "fontColor": "blue" }}>
+              <FilterListIcon/>
+							Clear Filters
             </Button>
-            <Fab variant="extended" color="primary" style={{ "min-width": "40%","zIndex":'0' }}>
+            <Fab variant="extended" color="primary" style={{ "minWidth": "40%","zIndex":'0' }}>
               <SearchIcon sx={{ mr: 1 }} />
               Search
             </Fab>
           </div>
         </div>
         <div className="portfolios">
-          {portfolios.map((name) => (
-            <PortfolioCard name={name} />
+          {portfolios.map((info,index) => (
+            <PortfolioCard key={index} info={info} />
           ))}
         </div>
       </div>

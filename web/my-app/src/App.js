@@ -1,7 +1,7 @@
 import Quiz from './pages/Quiz';
 import MyInvestments from './pages/MyInvestments'
 import MyPortfolio from './pages/MyPortfolio';
-import Savings from './pages/Savings.js';
+import Savings from './pages/Savings';
 import { Routes, Route } from 'react-router-dom';
 
 const App = () => {
