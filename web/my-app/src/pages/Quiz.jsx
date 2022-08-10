@@ -5,6 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Navbar from "../components/Navbar";
 import { Link } from 'react-router-dom';
 
+
 const Quiz = () => {
   const [income, setIncome] = useState(null);
   const [percentIncome, setPercentIncome] = useState(null);
@@ -18,6 +19,17 @@ const Quiz = () => {
   return (
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
+      <span><Button variant="contained"><Link to="/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign Up</Link></Button></span>
+      <span><Button variant="contained"><Link to="/signin" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign In</Link></Button></span>
+
+      
+      {/* <Button onClick={handleSignUp}
+              variant="contained" 
+              to="/signup"
+              LinkComponent={Link}
+            >
+              Sign Up
+            </Button> */}
       <Container sx={{
         backgroundColor: 'white',
         borderRadius: '15px',

@@ -4,6 +4,7 @@ import Tabs from "../components/Tabs";
 import { Container } from "@mui/system";
 import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button } from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
+import SignUp from './SignUp';
 
 const MyPortfolio = () => {
   const [income, setIncome] = useState(null);
@@ -11,7 +12,28 @@ const MyPortfolio = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  const handleSubmit = async () => {
+  var payload =  {
+    "income": income,
+    "percentIncome": percentIncome,
+    "risk": risk,
+    "goal": goal
+  };
+
+  function handleSubmit() {
+
+    console.log("Hello world");
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }
+
+    console.log(payload);
+
+    fetch('https://whatawhatwhat.com', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
 
   }
 
@@ -132,7 +154,7 @@ const MyPortfolio = () => {
               my: "30px"
             }}
           >
-            <Button onSubmit={handleSubmit}
+            <Button onClick={handleSubmit}
               variant="contained" 
               endIcon={<SaveIcon/>}
             >
