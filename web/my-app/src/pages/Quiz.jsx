@@ -21,6 +21,12 @@ const Quiz = () => {
 
   function handleSubmit() {
 
+    localStorage.setItem('income', JSON.stringify(income));
+    localStorage.setItem('percentIncome', JSON.stringify(percentIncome));
+    localStorage.setItem('risk', JSON.stringify(risk));
+    localStorage.setItem('goal', JSON.stringify(goal));
+
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -21,6 +21,7 @@ const MyPortfolio = () => {
 
   function handleSubmit() {
 
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,10 +35,16 @@ const MyPortfolio = () => {
   }
 
   useEffect(() => {
-    setIncome(123);
-    setPercentIncome(50);
-    setRisk("low");
-    setGoal("RT");
+
+    const defalut_income = JSON.parse(localStorage.getItem('income'));
+    const defalut_percentIncome = JSON.parse(localStorage.getItem('percentIncome'));
+    const defalut_risk = JSON.parse(localStorage.getItem('risk'));
+    const defalut_goal = JSON.parse(localStorage.getItem('goal'));
+
+    setIncome(defalut_income);
+    setPercentIncome(defalut_percentIncome);
+    setRisk(defalut_risk);
+    setGoal(defalut_goal);
   }, [])
 
   return (
