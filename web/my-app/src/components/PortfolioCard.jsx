@@ -2,6 +2,7 @@ import { Card, CardActionArea, CardContent, Typography, Dialog, DialogTitle, Lis
 import React from "react";
 import { useSelector,useDispatch } from 'react-redux'
 import { updatePortfolioData } from '../redux/personalDataSlice'
+import "../css/myinvestments.css";
 
 
 function SimpleDialog({ onClose, info, open }) {
@@ -62,7 +63,7 @@ export default function PortfolioCard({info}){
 
 return(
     <>
-        <Card sx={{ minWidth: '90%' }} style={{ margin: "20px 0px" }}>
+        <Card className={returnrate>=0?'card positive':'card negative'}>
         <CardActionArea onClick={handleClickOpen}>
             <CardContent style={{'display':'flex','flexDirection':'row','justifyContent':'space-between'}}>
             <div>
@@ -79,15 +80,15 @@ return(
                 Risk level: {risk}
             </Typography>
             </div>
-            <div style={{'alignSelf':'center'}}>
+            <div style={{alignSelf:'center'}}>
             <Typography>1-year performance:</Typography>
-            {Array.from(returnrate)[0]==='+'?
+            {returnrate>0?
             <Typography variant='h5' style={{'color':'green','textAlign':'right'}}>
-                {returnrate}
+                +{returnrate}%
             </Typography>
             :
             <Typography variant='h5' style={{'color':'red','textAlign':'right'}}>
-                {returnrate}
+                {returnrate}%
             </Typography>
             }
             </div>
