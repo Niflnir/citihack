@@ -11,20 +11,26 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 
 
 
-
 const stocks= [
   'ETSY','PINS','MELI','SQ','SHOP','ISRG','DSK','BRK.A','AMZN','TSLA','AMD','GME'
 ]
 
 export default function MyInvestments () {
   const [portfolios, setPortfolios] = useState([
-    {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":35},
-    {"name":"Norton","term":"Long Term","risk":"Low Risk","returnrate":30},
-    {"name":"Han","term":"Long Term","risk":"Low Risk","returnrate":5},
-    {"name":"Solo","term":"Long Term","risk":"High Risk","returnrate":-35}]);
+    {"name":"Edward","term":"Long Term","risk":0,"returnrate":35},
+    {"name":"Norton","term":"Long Term","risk":0,"returnrate":30},
+    {"name":"Han","term":"Long Term","risk":1,"returnrate":5},
+    {"name":"Solo","term":"Medium Term","risk":4,"returnrate":-35},
+    {"name":"Shin","term":"Medium Term","risk":2,"returnrate":-10},
+    {"name":"Harold","term":"Medium Term","risk":1,"returnrate":5},
+    {"name":"Greg","term":"Short Term","risk":3,"returnrate":-5},
+    {"name":"Natalie","term":"Short Term","risk":2,"returnrate":5},
+    {"name":"Natalie","term":"Short Term","risk":1,"returnrate":10},
+  ]);
+  const [filteredPortfolio, setFilteredPortfolio] = useState([])
   const [risk, setRisk] = useState(0)
   const [sort, setSort] = useState("high2low")
-  const term = useRef("Long Term");
+  const [term, setTerm] = useState("Long Term")
   
   const compare = ( a, b ) => {
     if (sort==='high2low'){
@@ -44,6 +50,22 @@ export default function MyInvestments () {
       setSort(val);
     }
   };
+
+  const handleSearch = (event) => {
+    var filter = {
+      'term': term,
+      'risk': risk,
+    };
+    console.log(filter)
+    setFilteredPortfolio(portfolios.filter((item)=>{
+      for (var key in filter) {
+        if (item[key] !== filter[key])
+          return false;
+      }
+      return true;
+    }))
+  }
+
   return (
 		<div style={{
 			display: 'flex',
@@ -70,17 +92,13 @@ export default function MyInvestments () {
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
               <InputLabel>Term</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={term.current}
-                label="Age"
-                onChange={(e) => {
-                  term.current = e.target.value;
-                }}
+                value={term}
+                label="Term"
+                onChange={e=>setTerm(e.target.value)}
               >
                 <MenuItem value={"Long Term"}>Long term</MenuItem>
+                <MenuItem value={"Medium Term"}>Medium Term</MenuItem>
                 <MenuItem value={"Short Term"}>Short Term</MenuItem>
-                <MenuItem value={"Any"}>Any</MenuItem>
               </Select>
             </FormControl>
             <InputLabel style={{'alignSelf':'center'}}>Sort by:</InputLabel>
@@ -96,9 +114,10 @@ export default function MyInvestments () {
           <div className='inputs'>
             <FormControl >
               <FormLabel>Risk Level: 0 (Lowest) to 5 (Highest)</FormLabel>
-              <RadioGroup row 
+              <RadioGroup 
+                row 
                 value={risk}
-                onChange={e=>setRisk(e.target.value)}
+                onChange={e=>setRisk(parseInt(e.target.value))}
               >
                 <FormControlLabel style={{'margin':'0px'}} value={0} control={<Radio />} label="0" labelPlacement="bottom"/>
                 <FormControlLabel style={{'margin':'0px'}} value={1} control={<Radio />} label='' labelPlacement="bottom"/>
@@ -130,15 +149,15 @@ export default function MyInvestments () {
               <FilterListIcon/>
 							Clear Filters
             </Button>
-            <Fab variant="extended" color="primary" style={{ "minWidth": "40%","zIndex":'0' }}>
+            <Fab variant="extended" color="primary" style={{ "minWidth": "40%","zIndex":'0' }} onClick={handleSearch}>
               <SearchIcon sx={{ mr: 1 }} />
               Search
             </Fab>
           </div>
         </div>
         <div className="portfolios">
-          {portfolios.length!==0?
-          portfolios.sort(compare).map((info,index) => (
+          {filteredPortfolio.length!==0?
+          filteredPortfolio.sort(compare).map((info,index) => (
             <PortfolioCard key={index} info={info} />
           )):
           <Typography variant="h4">No Portfolios found!</Typography>
