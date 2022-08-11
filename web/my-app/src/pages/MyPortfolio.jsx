@@ -58,8 +58,6 @@ const MyPortfolio = () => {
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
       <Tabs tabValue={"1"}/>
-      <Grid container direction="row">
-      <Grid item sx={{pl:45}}>
         <Container sx={{
           backgroundColor: 'white',
           borderRadius: '15px',
@@ -175,21 +173,6 @@ const MyPortfolio = () => {
             </Grid>
           </Grid>
         </Container>
-      </Grid>
-        <Grid item sx={{pl:10}}>
-        <Container sx={{
-          backgroundColor: 'white',
-          borderRadius: '15px',
-          height: "700px",
-          width: "550px",
-          mt: "50px",
-          display: "flex",
-          justifyContent: "center"  
-        }}> 
-            Hello
-        </Container>
-        </Grid>
-      </Grid>
     </div>
   )
 }

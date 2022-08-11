@@ -1,0 +1,25 @@
+.leftdiv
+{
+
+    margin-left: 2%;
+    min-width:47%;
+    float:left;
+    margin-bottom: 25px ;
+}
+
+.rightdiv
+{
+
+    width:47%;
+    margin-right: 2%;
+    float:right;
+    margin-bottom: 25px ;
+}
+
+
+.bodyportfolio
+{
+  height: 100%;
+  background-color:"#e7ebf0";
+  margin-bottom: 0px;
+}
