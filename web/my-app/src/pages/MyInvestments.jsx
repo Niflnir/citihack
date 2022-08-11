@@ -44,18 +44,18 @@ const stocks = [
 
 export default function MyInvestments() {
   const [portfolios, setPortfolios] = useState([
-    { name: "Edward", term: "Long Term", risk: 0, returnrate: 35 },
-    { name: "Norton ", term: "Long Term", risk: 0, returnrate: 30 },
-    { name: "Han Solor", term: "Long Term", risk: 1, returnrate: 5 },
-    { name: "Emmanuel", term: "Long Term", risk: 1, returnrate: -5 },
-    { name: "Joy", term: "Long Term", risk: 2, returnrate: -15 },
-    { name: "Bruce Wayne", term: "Long Term", risk: 2, returnrate: -25 },
-    { name: "Solo", term: "Medium Term", risk: 4, returnrate: -35 },
-    { name: "Shin", term: "Medium Term", risk: 2, returnrate: -10 },
-    { name: "Harold", term: "Medium Term", risk: 1, returnrate: 5 },
-    { name: "Greg", term: "Short Term", risk: 3, returnrate: -5 },
-    { name: "Natalie H.", term: "Short Term", risk: 2, returnrate: 5 },
-    { name: "Natalie V.", term: "Short Term", risk: 1, returnrate: 10 },
+    { name: "Edward", term: "Long Term", risk: 0, returnrate: 35, date:"8/11/2022",period:"one year",stock:"Bajaj Finserv" },
+    { name: "Norton ", term: "Long Term", risk: 0, returnrate: 30, date:"8/11/2022",period:"one year",stock:"Google"  },
+    { name: "Han Solor", term: "Long Term", risk: 1, returnrate: 5, date:"8/11/2022",period:"one year",stock:"Amazon"  },
+    { name: "Emmanuel", term: "Long Term", risk: 1, returnrate: -5, date:"8/11/2022",period:"one year",stock:"AMD"  },
+    { name: "Joy", term: "Long Term", risk: 2, returnrate: -15, date:"8/11/2022",period:"one year",stock:"Nivea"  },
+    { name: "Bruce Wayne", term: "Long Term", risk: 2, returnrate: -25, date:"8/11/2022",period:"one year",stock:"GME"  },
+    { name: "Solo", term: "Medium Term", risk: 4, returnrate: -35, date:"8/11/2022",period:"one year",stock:"Nividia"  },
+    { name: "Shin", term: "Medium Term", risk: 2, returnrate: -10, date:"8/11/2022",period:"one year",stock:"Winnie the Pooh"  },
+    { name: "Harold", term: "Medium Term", risk: 1, returnrate: 5, date:"8/11/2022",period:"one year",stock:"AMC"  },
+    { name: "Greg", term: "Short Term", risk: 3, returnrate: -5, date:"8/11/2022",period:"one year",stock:"Nivida"  },
+    { name: "Natalie H.", term: "Short Term", risk: 2, returnrate: 5, date:"8/11/2022",period:"one year",stock:"Shell"  },
+    { name: "Natalie V.", term: "Short Term", risk: 1, returnrate: 10, date:"8/11/2022",period:"one year",stock:"Solar"  },
   ]);
   const [filteredPortfolio, setFilteredPortfolio] = useState([]);
   const [risk, setRisk] = useState(0);

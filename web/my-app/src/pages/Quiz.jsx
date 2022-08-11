@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Container } from "@mui/system";
-import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
+import {
+  Grid,
+  TextField,
+  Typography,
+  InputAdornment,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  Button,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import Navbar from "../components/Navbar";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const Quiz = () => {
   const [income, setIncome] = useState(null);
@@ -13,124 +23,107 @@ const Quiz = () => {
   const [goal, setGoal] = useState(null);
 
   const handleSubmit = () => {
-    const email = sessionStorage.getItem('email');
-    var payload =  {
-      "email": email,
-      "income": income,
-      "percentIncome": percentIncome,
-      "risk": risk,
-      "goal": goal
+    const email = sessionStorage.getItem("email");
+    var payload = {
+      email: email,
+      income: income,
+      percentIncome: percentIncome,
+      risk: risk,
+      goal: goal,
     };
 
-    sessionStorage.setItem('income', income);
-    sessionStorage.setItem('percentIncome', percentIncome);
-    sessionStorage.setItem('risk', risk);
-    sessionStorage.setItem('goal', goal);
+    sessionStorage.setItem("income", income);
+    sessionStorage.setItem("percentIncome", percentIncome);
+    sessionStorage.setItem("risk", risk);
+    sessionStorage.setItem("goal", goal);
 
     const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    };
 
-    fetch('http://localhost:3001/api/users/quiz', requestOptions)
-        .then(response => response.json())
-        .then(data => {sessionStorage.setItem('id', data.portfolio.id)})
-  }
+    fetch("http://localhost:3001/api/users/quiz", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        sessionStorage.setItem("id", data.portfolio.id);
+      });
+  };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
-      <Navbar /> 
-      <span><Button variant="contained"><Link to="/signup" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign Up</Link></Button></span>
-      <span><Button variant="contained"><Link to="/signin" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">Sign In</Link></Button></span>
-
-      
-      {/* <Button onClick={handleSignUp}
-              variant="contained" 
-              to="/signup"
-              LinkComponent={Link}
-            >
-              Sign Up
-            </Button> */}
-      <Container sx={{
-        backgroundColor: 'white',
-        borderRadius: '15px',
-        height: "700px",
-        width: "550px",
-        mt: "50px",
-        display: "flex",
-        justifyContent: "center"  
-      }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#e7ebf0" }}>
+      <Navbar />
+      <Container
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "15px",
+          height: "700px",
+          width: "550px",
+          mt: "50px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Grid direction="column" container spacing={2}>
-          <Grid alignSelf="center" 
-            item 
+          <Grid
+            alignSelf="center"
+            item
             sx={{
               my: "30px",
             }}
           >
-            <Typography fontSize={23}>
-              Portfolio Questionaire
-            </Typography>
+            <Typography fontSize={23}>Portfolio Questionaire</Typography>
           </Grid>
-          <Grid item
+          <Grid
+            item
             sx={{
               ml: "30px",
-              my: "17px"
+              my: "17px",
             }}
           >
-            <TextField 
+            <TextField
               required
               id="outlined-required"
               label="Required"
               helperText="Please enter your monthly income"
               variant="standard"
               value={income}
-              onChange={e => setIncome(parseInt(e.target.value))}
+              onChange={(e) => setIncome(parseInt(e.target.value))}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    $
-                  </InputAdornment>
-                ),
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
             />
           </Grid>
-          <Grid item
+          <Grid
+            item
             sx={{
               ml: "30px",
-              my: "17px"
+              my: "17px",
             }}
           >
-            <TextField 
+            <TextField
               required
               id="outlined-required"
               label="Required"
               helperText="Please enter the % you willing to invest"
               variant="standard"
               value={percentIncome}
-              onChange={e => setPercentIncome(parseInt(e.target.value))}
+              onChange={(e) => setPercentIncome(parseInt(e.target.value))}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    %
-                  </InputAdornment>
-                ),
+                startAdornment: <InputAdornment position="start">%</InputAdornment>,
               }}
             />
           </Grid>
-          <Grid item 
+          <Grid
+            item
             sx={{
               ml: "30px",
-              my: "17px"
+              my: "17px",
             }}
           >
             <FormControl>
               <InputLabel>Risk Index</InputLabel>
-              <Select
-                value={risk}
-                label="Risk Index"
-                onChange={e => setRisk(e.target.value)}
-              >
+              <Select value={risk} label="Risk Index" onChange={(e) => setRisk(e.target.value)}>
                 <MenuItem value={"low"}>Low</MenuItem>
                 <MenuItem value={"moderate"}>Moderate</MenuItem>
                 <MenuItem value={"high"}>High</MenuItem>
@@ -138,10 +131,11 @@ const Quiz = () => {
               <FormHelperText>Please select your Risk Index</FormHelperText>
             </FormControl>
           </Grid>
-          <Grid item 
+          <Grid
+            item
             sx={{
               ml: "30px",
-              my: "17px"
+              my: "17px",
             }}
           >
             <FormControl>
@@ -149,7 +143,7 @@ const Quiz = () => {
               <Select
                 value={goal}
                 label="Investment Goal"
-                onChange={e => setGoal(e.target.value)}
+                onChange={(e) => setGoal(e.target.value)}
               >
                 <MenuItem value={"RT"}>Retirement</MenuItem>
                 <MenuItem value={"SN"}>Safety Net</MenuItem>
@@ -159,14 +153,17 @@ const Quiz = () => {
               <FormHelperText>Please select your Investment Goal</FormHelperText>
             </FormControl>
           </Grid>
-          <Grid item 
+          <Grid
+            item
             alignSelf="end"
             sx={{
               mx: "30px",
-            }}>
-            <Button onClick={handleSubmit}
-              variant="contained" 
-              endIcon={<SendIcon/>}
+            }}
+          >
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              endIcon={<SendIcon />}
               to="/myportfolio"
               LinkComponent={Link}
             >
@@ -176,7 +173,7 @@ const Quiz = () => {
         </Grid>
       </Container>
     </div>
-  )
-}
+  );
+};
 
 export default Quiz;
