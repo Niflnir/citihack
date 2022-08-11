@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from "../components/Navbar";
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -30,13 +31,23 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({email: data.get('email'), password: data.get('password')})
+    }
+
+    sessionStorage.setItem('email', data.get('email'));
+    console.log(sessionStorage.getItem('email'))
+    fetch('http://localhost:3001/api/users/signup', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
+    navigate('/quiz');
   };
 
   return (

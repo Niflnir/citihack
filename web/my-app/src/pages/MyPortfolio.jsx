@@ -4,7 +4,6 @@ import Tabs from "../components/Tabs";
 import { Container } from "@mui/system";
 import { Grid, TextField, Typography, InputAdornment, FormControl, FormHelperText, InputLabel, MenuItem, Select, Button } from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
-import SignUp from './SignUp';
 
 const MyPortfolio = () => {
   const [income, setIncome] = useState(null);
@@ -12,15 +11,33 @@ const MyPortfolio = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  var payload =  {
-    "income": income,
-    "percentIncome": percentIncome,
-    "risk": risk,
-    "goal": goal
-  };
+  const getPortfolio = () => {
+    const id = sessionStorage.getItem('id');
+    const requestOptions = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    }
 
-  function handleSubmit() {
+    fetch(`http://localhost:3001/api/users/myportfolio/${id}`, requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        // .then(({income, percentIncome, risk, goal}) => {
+        // setIncome(income);
+        // setPercentIncome(percentIncome);
+        // setRisk(risk);
+        // setGoal(goal);
+      // })
+  }
 
+  function handleSave() {
+    const email = sessionStorage.getItem('email');
+    var payload =  {
+      "email": email,
+      "income": income,
+      "percentIncome": percentIncome,
+      "risk": risk,
+      "goal": goal
+    };
 
     const requestOptions = {
       method: 'POST',
@@ -28,144 +45,151 @@ const MyPortfolio = () => {
       body: JSON.stringify(payload)
     }
 
-    fetch('https://whatawhatwhat.com', requestOptions)
+    fetch('http://localhost:3001/api/users/quiz', requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))
 
+    setTimeout(() => {  
+      getPortfolio();
+    }, 1000);
   }
-
-  useEffect(() => {
-
-    const defalut_income = JSON.parse(localStorage.getItem('income'));
-    const defalut_percentIncome = JSON.parse(localStorage.getItem('percentIncome'));
-    const defalut_risk = JSON.parse(localStorage.getItem('risk'));
-    const defalut_goal = JSON.parse(localStorage.getItem('goal'));
-
-    setIncome(defalut_income);
-    setPercentIncome(defalut_percentIncome);
-    setRisk(defalut_risk);
-    setGoal(defalut_goal);
-  }, [])
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor:"#e7ebf0"}}>
       <Navbar /> 
       <Tabs tabValue={"1"}/>
-      <Container sx={{
-        backgroundColor: 'white',
-        borderRadius: '15px',
-        height: "700px",
-        width: "550px",
-        mt: "50px",
-        display: "flex",
-        justifyContent: "center"  
-      }}>
-        <Grid direction="column" container spacing={2}>
-          <Grid alignSelf="center" 
-            item 
-            sx={{
-              my: "30px",
-            }}
-          >
-            <Typography fontSize={23}>
-              Portfolio Questionaire
-            </Typography>
-          </Grid>
-          <Grid item
-            sx={{
-              ml: "30px",
-              my: "17px"
-            }}
-          >
-            <TextField 
-              id="outlined-required"
-              label="Monthly Income"
-              variant="standard"
-              value={income}
-              onChange={e => setIncome(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    $
-                  </InputAdornment>
-                ),
+      <Grid container direction="row">
+      <Grid item sx={{pl:45}}>
+        <Container sx={{
+          backgroundColor: 'white',
+          borderRadius: '15px',
+          height: "700px",
+          width: "550px",
+          mt: "50px",
+          display: "flex",
+          justifyContent: "center"  
+        }}>
+          <Grid direction="column" container spacing={2}>
+            <Grid alignSelf="center" 
+              item 
+              sx={{
+                my: "30px",
               }}
-            />
-          </Grid>
-          <Grid item
-            sx={{
-              ml: "30px",
-              my: "17px"
-            }}
-          >
-            <TextField 
-              id="outlined-required"
-              label="Percentage of Income to Invest"
-              variant="standard"
-              value={percentIncome}
-              onChange={e => setPercentIncome(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    %
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item 
-            sx={{
-              ml: "30px",
-              my: "17px"
-            }}
-          >
-            <FormControl>
-              <Select
-                value={risk}
-                onChange={e => setRisk(e.target.value)}
-              >
-                <MenuItem value={"low"}>Low</MenuItem>
-                <MenuItem value={"moderate"}>Moderate</MenuItem>
-                <MenuItem value={"high"}>High</MenuItem>
-              </Select>
-              <FormHelperText>Please select your Risk Index</FormHelperText>
-            </FormControl>
-          </Grid>
-          <Grid item 
-            sx={{
-              ml: "30px",
-              my: "17px"
-            }}
-          >
-            <FormControl>
-              <Select
-                value={goal}
-                onChange={e => setGoal(e.target.value)}
-              >
-                <MenuItem value={"RT"}>Retirement</MenuItem>
-                <MenuItem value={"SN"}>Safety Net</MenuItem>
-                <MenuItem value={"BP"}>Big Purchase</MenuItem>
-                <MenuItem value={"GI"}>General Investing</MenuItem>
-              </Select>
-              <FormHelperText>Please select your Investment Goal</FormHelperText>
-            </FormControl>
-          </Grid>
-          <Grid item 
-            alignSelf="end"
-            sx={{
-              mx: "30px",
-              my: "30px"
-            }}
-          >
-            <Button onClick={handleSubmit}
-              variant="contained" 
-              endIcon={<SaveIcon/>}
             >
-              Save
-            </Button>
+              <Typography fontSize={23}>
+                Portfolio Questionaire
+              </Typography>
+            </Grid>
+            <Grid item
+              sx={{
+                ml: "30px",
+                my: "17px"
+              }}
+            >
+              <TextField 
+                id="outlined-required"
+                label="Monthly Income"
+                variant="standard"
+                value={income}
+                onChange={e => setIncome(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      $
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item
+              sx={{
+                ml: "30px",
+                my: "17px"
+              }}
+            >
+              <TextField 
+                id="outlined-required"
+                label="Percentage of Income to Invest"
+                variant="standard"
+                value={percentIncome}
+                onChange={e => setPercentIncome(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      %
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item 
+              sx={{
+                ml: "30px",
+                my: "17px"
+              }}
+            >
+              <FormControl>
+                <Select
+                  value={risk}
+                  onChange={e => setRisk(e.target.value)}
+                >
+                  <MenuItem value={"low"}>Low</MenuItem>
+                  <MenuItem value={"moderate"}>Moderate</MenuItem>
+                  <MenuItem value={"high"}>High</MenuItem>
+                </Select>
+                <FormHelperText>Please select your Risk Index</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item 
+              sx={{
+                ml: "30px",
+                my: "17px"
+              }}
+            >
+              <FormControl>
+                <Select
+                  value={goal}
+                  onChange={e => setGoal(e.target.value)}
+                >
+                  <MenuItem value={"RT"}>Retirement</MenuItem>
+                  <MenuItem value={"SN"}>Safety Net</MenuItem>
+                  <MenuItem value={"BP"}>Big Purchase</MenuItem>
+                  <MenuItem value={"GI"}>General Investing</MenuItem>
+                </Select>
+                <FormHelperText>Please select your Investment Goal</FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item 
+              alignSelf="end"
+              sx={{
+                mx: "30px",
+                my: "30px"
+              }}
+            >
+              <Button onClick={handleSave}
+                variant="contained" 
+                endIcon={<SaveIcon/>}
+              >
+                Save
+              </Button>
+            </Grid>
           </Grid>
+        </Container>
+      </Grid>
+        <Grid item sx={{pl:10}}>
+        <Container sx={{
+          backgroundColor: 'white',
+          borderRadius: '15px',
+          height: "700px",
+          width: "550px",
+          mt: "50px",
+          display: "flex",
+          justifyContent: "center"  
+        }}> 
+            Hello
+        </Container>
         </Grid>
-      </Container>
+      </Grid>
     </div>
   )
 }

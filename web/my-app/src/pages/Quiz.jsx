@@ -12,20 +12,20 @@ const Quiz = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
 
-  var payload =  {
-    "income": income,
-    "percentIncome": percentIncome,
-    "risk": risk,
-    "goal": goal
-  };
+  const handleSubmit = () => {
+    const email = sessionStorage.getItem('email');
+    var payload =  {
+      "email": email,
+      "income": income,
+      "percentIncome": percentIncome,
+      "risk": risk,
+      "goal": goal
+    };
 
-  function handleSubmit() {
-
-    localStorage.setItem('income', JSON.stringify(income));
-    localStorage.setItem('percentIncome', JSON.stringify(percentIncome));
-    localStorage.setItem('risk', JSON.stringify(risk));
-    localStorage.setItem('goal', JSON.stringify(goal));
-
+    sessionStorage.setItem('income', income);
+    sessionStorage.setItem('percentIncome', percentIncome);
+    sessionStorage.setItem('risk', risk);
+    sessionStorage.setItem('goal', goal);
 
     const requestOptions = {
       method: 'POST',
@@ -33,10 +33,9 @@ const Quiz = () => {
       body: JSON.stringify(payload)
     }
 
-    fetch('https://whatawhatwhat.com', requestOptions)
+    fetch('http://localhost:3001/api/users/quiz', requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data))
-
+        .then(data => {sessionStorage.setItem('id', data.portfolio.id)})
   }
 
   return (
@@ -86,7 +85,7 @@ const Quiz = () => {
               helperText="Please enter your monthly income"
               variant="standard"
               value={income}
-              onChange={e => setIncome(e.target.value)}
+              onChange={e => setIncome(parseInt(e.target.value))}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -109,7 +108,7 @@ const Quiz = () => {
               helperText="Please enter the % you willing to invest"
               variant="standard"
               value={percentIncome}
-              onChange={e => setPercentIncome(e.target.value)}
+              onChange={e => setPercentIncome(parseInt(e.target.value))}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
