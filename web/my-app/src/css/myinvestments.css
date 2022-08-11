@@ -22,7 +22,7 @@ body {
     align-items: center;
     flex-direction: column;
     flex: 1 1 auto;
-    background-color: rgb(227, 227, 227);
+    background-color: rgb(239, 239, 239);
     padding: 0px 50px;
     overflow-y: auto;
 }
@@ -41,4 +41,23 @@ body {
     justify-content: center;
     margin: 30px;
     gap: 20px
+}
+
+.card{ 
+    min-width: 90%;
+    margin: 20px 0px;
+}
+
+.positive{
+    background: linear-gradient(to left,
+    rgb(164, 255, 187),
+    rgba(255, 255, 255, 0)
+    );
+}
+
+.negative{
+    background: linear-gradient(to left,
+    rgb(255, 166, 166),
+    rgba(255, 255, 255, 0)
+    );
 }

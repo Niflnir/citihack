@@ -20,6 +20,9 @@ export default function MyInvestments () {
     {"name":"Edward","term":"Long Term","risk":0,"returnrate":35},
     {"name":"Norton","term":"Long Term","risk":0,"returnrate":30},
     {"name":"Han","term":"Long Term","risk":1,"returnrate":5},
+    {"name":"Han","term":"Long Term","risk":1,"returnrate":-5},
+    {"name":"Han","term":"Long Term","risk":2,"returnrate":-15},
+    {"name":"Han","term":"Long Term","risk":2,"returnrate":-25},
     {"name":"Solo","term":"Medium Term","risk":4,"returnrate":-35},
     {"name":"Shin","term":"Medium Term","risk":2,"returnrate":-10},
     {"name":"Harold","term":"Medium Term","risk":1,"returnrate":5},
@@ -30,7 +33,7 @@ export default function MyInvestments () {
   const [filteredPortfolio, setFilteredPortfolio] = useState([])
   const [risk, setRisk] = useState(0)
   const [sort, setSort] = useState("high2low")
-  const [term, setTerm] = useState("Long Term")
+  const [term, setTerm] = useState("Any")
   
   const compare = ( a, b ) => {
     if (sort==='high2low'){
@@ -56,10 +59,9 @@ export default function MyInvestments () {
       'term': term,
       'risk': risk,
     };
-    console.log(filter)
     setFilteredPortfolio(portfolios.filter((item)=>{
       for (var key in filter) {
-        if (item[key] !== filter[key])
+        if (item[key] !== filter[key] && filter[key]!=='Any')
           return false;
       }
       return true;
@@ -99,6 +101,7 @@ export default function MyInvestments () {
                 <MenuItem value={"Long Term"}>Long term</MenuItem>
                 <MenuItem value={"Medium Term"}>Medium Term</MenuItem>
                 <MenuItem value={"Short Term"}>Short Term</MenuItem>
+                <MenuItem value={"Any"}>Any</MenuItem>
               </Select>
             </FormControl>
             <InputLabel style={{'alignSelf':'center'}}>Sort by:</InputLabel>
@@ -145,7 +148,7 @@ export default function MyInvestments () {
           />
           </div>
           <div className="inputs">
-            <Button variant="text" color="primary" style={{ "fontColor": "blue" }}>
+            <Button variant="text" color="primary" style={{ "fontColor": "blue" }} onClick={e=>{setRisk(0);setTerm('Any');}}>
               <FilterListIcon/>
 							Clear Filters
             </Button>
