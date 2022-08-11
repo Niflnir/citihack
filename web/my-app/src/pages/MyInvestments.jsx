@@ -88,7 +88,7 @@ export default function MyInvestments() {
     setFilteredPortfolio(
       portfolios.filter((item) => {
         for (var key in filter) {
-          if (item[key] !== filter[key] && filter[key] !== "Any") return false;
+          if (item[key] !== filter[key] && filter[key] !== "Any" && filter[key] !== "") return false;
         }
         return true;
       }),
