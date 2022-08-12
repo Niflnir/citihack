@@ -25,7 +25,6 @@ function SimpleDialog({ onClose, info, open }) {
 
     return (
       <Dialog onClose={handleClose} open={open}>
-        {/* {"name":"Edward","term":"Long Term","risk":"Low Risk","returnrate":"35%"}, */}
         <DialogTitle>{info.stock}'s Financial Investment:</DialogTitle>
         <div style={divv}><b>Term: </b>{info.term}</div>
         <div style={divv}><b>Risk: </b>{info.risk}</div>

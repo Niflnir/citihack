@@ -13,10 +13,10 @@ const MyPortfolio = () => {
   const [risk, setRisk] = useState(null);
   const [goal, setGoal] = useState(null);
   const [portfolios, setPortfolios] = useState([
-    {"name":"Edward","term":"Long Term","risk":"Low Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"35%","stock":"Bajaj Finserv"},
-    {"name":"Norton, Han","term":"Long Term","risk":"Low Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"35%","stock":"Amazon"},
+    {"name":"Edward","term":"Long Term","risk":"Low Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"+70%","stock":"Bajaj Finserv"},
+    {"name":"Norton, Han","term":"Long Term","risk":"Low Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"+25%","stock":"Amazon"},
     // {"name":"Han","term":"Long Term","risk":"Low Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"35%","stock":"Dr Reddys Labs"},
-    {"name":"Solo","term":"Long Term","risk":"High Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"35%","stock":"Google"}]);
+    {"name":"Solo","term":"Long Term","risk":"High Risk","amount": "1M","date":"8/11/2022","period":"one year","returnrate":"-5%","stock":"Google"}]);
   const getPortfolio = () => {
     const id = sessionStorage.getItem('id');
     const requestOptions = {
@@ -84,7 +84,7 @@ const MyPortfolio = () => {
                 }}
               >
                 <Typography fontSize={23}>
-                  Portfolio Questionaire
+                  My Portfolio 
                 </Typography>
               </Grid>
               <Grid item
